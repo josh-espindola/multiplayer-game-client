@@ -1,9 +1,12 @@
 import './App.css'
 import { ProtectedRoute } from './Components/ProtectedRoute';
+import { useAuth } from './context/useAuth.js';
 import { Login } from './pages/Login';
 import { Routes,  Route } from 'react-router';
 
 function App() {
+  const {user} = useAuth();
+  console.log("Usuario Actual",user)
 
   return (
     <Routes>
