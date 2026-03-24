@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from './context/AuthContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+/*   <StrictMode> */
     <BrowserRouter>
        <AuthProvider>
           <Toaster
@@ -17,5 +17,5 @@ createRoot(document.getElementById('root')).render(
         <App/>
        </AuthProvider>
     </BrowserRouter> 
-  </StrictMode>,
+/*   </StrictMode>, */
 )

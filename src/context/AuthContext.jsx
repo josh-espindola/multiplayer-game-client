@@ -23,7 +23,6 @@ const AuthProvider = ({ children }) => {
         if (token && !isTokenExpired(token)) {
             const payload = JSON.parse(atob(token.split(".")[1]));
             setUser(payload);
-            console.log("Bienvenido jugador: ", payload);
         }
     }, []);
 

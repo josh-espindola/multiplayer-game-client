@@ -13,8 +13,7 @@ const SocketProvider = ({children})=>{
 
         socket.on("connect", () => {
             setIsConnected(true)
-            console.log("Usuario conectaado al srvidor, mi id es :",socket.id);
-            console.log(socket);
+            console.log("se ha creado la conexion al socket desde el Provider");
         })
         socket.on("disconnect", () => setIsConnected(false))
 
@@ -27,7 +26,10 @@ const SocketProvider = ({children})=>{
 
     return(
         <SocketContext.Provider
-        value={{isConnected,setIsConnected}}>
+        value={{
+            isConnected,
+            socket,
+            setIsConnected}}>
             {children}
         </SocketContext.Provider>
     )

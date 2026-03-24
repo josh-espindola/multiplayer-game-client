@@ -1,0 +1,12 @@
+.gameContainer{
+    display:flex;
+    flex-direction: row-reverse;
+}
+
+
+#canvas{
+    outline: 1px solid black;
+    background: white;
+}
+
+
