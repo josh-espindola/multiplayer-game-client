@@ -7,6 +7,7 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const {login} = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +29,7 @@ const Login = () => {
 
             /* 3.- response.json(), tambien es una promesa => await lee el body */
             const data = await response.json();
-            Login(data.token);
+            login(data.token);
             toast.success(`Has iniciado sesión!
                  Bienvenido ${username}`)
 

@@ -1,30 +1,34 @@
 import './App.css'
-import { ProtectedRoute } from './Components/ProtectedRoute';
-import { useAuth } from './context/useAuth.js';
+import { ProtectedRoute } from './Components/ProtectedRoute.jsx';
+/* import { useAuth } from './context/useAuth.js'; */
 import { Login } from './pages/Login';
-import { Routes,  Route } from 'react-router';
+import { Routes, Route } from 'react-router';
+import { SocketProvider } from './context/SocketContext.jsx';
 
 function App() {
-  const {user} = useAuth();
-  console.log("Usuario Actual",user)
-
+/*   const { user } = useAuth();
+  console.log("Usuario Actual", user)
+ */
   return (
     <Routes>
-      <Route path="/" element={<h1>Home</h1>}/>
-      <Route path="/login" element={<Login/>}/>
-      <Route 
-        path="/register" 
+      <Route path="/" element={<h1>Home</h1>} />
+      <Route path="/login" element={<Login />} />
+      <Route
+        path="/register"
         element=
-          {<h1>Register</h1>}/>
+        {<h1>Register</h1>} />
 
-      <Route 
-        path="/game" 
+      <Route
+        path="/game"
         element={
-         <ProtectedRoute>
-            <h1>Game</h1>
-          </ProtectedRoute>}
+          <SocketProvider>
+            <ProtectedRoute>
+              <h1>Game</h1>
+            </ProtectedRoute>
+          </SocketProvider>
+        }
       />
-      
+
     </Routes>
   )
 }
