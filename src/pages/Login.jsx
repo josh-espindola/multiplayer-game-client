@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router';
+import { useNavigate , Link } from 'react-router';
 import { useAuth } from '../context/useAuth.js';
 
 const Login = () => {
@@ -42,7 +42,6 @@ const Login = () => {
     return (
         <form onSubmit={handleSubmit}>
             <h1>Iniciar Sesión</h1>
-            <label htmlFor="username">
                 Nombre de usuario:
                 <input
                     id="username"
@@ -54,12 +53,10 @@ const Login = () => {
                         console.log("nombre de usuario:", e.target.value)
                     }}
                 />
-            </label>
-            <label htmlFor="password">
                 Contraseña:
                 <input
                     id="password"
-                    type="text"
+                    type="password"
                     placeholder='Contraseña'
                     required
                     onChange={(e) => {
@@ -67,9 +64,11 @@ const Login = () => {
                         console.log("contraseña:", e.target.value)
                     }}
                 />
-            </label>
 
             <button type="submit">Iniciar Sesión</button>
+
+
+            
         </form>
     )
 }

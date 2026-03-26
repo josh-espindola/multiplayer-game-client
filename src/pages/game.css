@@ -1,12 +1,214 @@
-.gameContainer{
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap');
+ 
+:root {
+  --bg-dark: #0d0d1a;
+  --bg-panel: #12122a;
+  --bg-panel2: #1a1a3a;
+  --border-color: #3a3a6a;
+  --border-glow: #5a4fff;
+  --accent: #5a4fff;
+  --accent-bright: #8b7fff;
+  --text-primary: #e8e8ff;
+  --text-secondary: #9090c0;
+  --text-dim: #5050a0;
+  --canvas-bg: #1a2a1a;
+  --gold: #ffd700;
+}
+ 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'VT323', monospace;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+ 
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  text-align: left;
+  border: none;
+  max-width: 100%;
+  margin: 0;
+}
+ 
+.gameContainer {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-dark);
+}
+ 
+#canvas {
+  flex: 1;
+  background: var(--canvas-bg);
+  display: block;
+  border-right: 2px solid var(--border-color);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+ 
+aside {
+  width: 380px;
+  min-width: 280px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-panel);
+  border-left: 2px solid var(--border-color);
+  position: relative;
+}
+ 
+aside::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border-glow), transparent);
+  animation: scanline 3s linear infinite;
+}
+ 
+@keyframes scanline {
+  0%   { opacity: 0.3; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.3; }
+}
+ 
+aside h1 {
     display:flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  color: var(--accent-bright);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-panel2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--accent);
+  margin: 0;
+}
+ 
+aside h1::before {
+  content: '▶ ';
+  color: var(--gold);
+}
+ 
+.message-container {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+ 
+.message-container::-webkit-scrollbar { width: 4px; }
+.message-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+ 
+.message-container li {
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  line-height: 1.3;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: #1e1e3e;
+  border-left: 3px solid var(--border-color);
+  color: var(--text-primary);
+  word-break: break-word;
+  animation: fadeIn 0.2s ease;
+}
+ 
+.message-container li strong {
+  color: var(--accent-bright);
+  margin-right: 4px;
+}
+ 
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.gameContainer form {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 10px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-panel2);
 }
 
-
-#canvas{
-    outline: 1px solid black;
-    background: white;
+.gameContainer form input[type='text'] {
+    min-width: 0;
+    flex: 1;
+    min-width: 0;  /* ← esto es clave en flexbox */
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    color: var(--text-primary);
+    font-family: 'VT323', monospace;
+    font-size: 18px;
+    padding: 6px 10px;
+    outline: none;
 }
 
-
+.gameContainer form button[type='submit'] {
+    flex-shrink: 0;
+    white-space: nowrap;
+    background: var(--accent);
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+ 
+form input[type='text']:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(90, 79, 255, 0.3);
+}
+ 
+form input[type='text']::placeholder {
+  color: var(--text-dim);
+}
+ 
+form button[type='submit'] {
+  background: var(--accent);
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+  text-transform: uppercase;
+}
+ 
+form button[type='submit']:hover {
+  background: var(--accent-bright);
+  box-shadow: 0 0 12px rgba(90, 79, 255, 0.5);
+}
+ 
+form button[type='submit']:active {
+  transform: scale(0.96);
+}

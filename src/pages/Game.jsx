@@ -48,9 +48,10 @@ const Game = () => {
                     onSubmit={submitHandler}
                     action="submit">
                     
-                    <input
+                          <input
                         required
                         type='text'
+                        placeholder='Escribe un mensaje..'
                         value={inputValue}
                         onChange={inputHandler} />
                     <button
