@@ -15,9 +15,10 @@ const Home = () => {
 
             <p>Ve al login para entrar a nuestro mundo</p>
 
-            <button
-            onClick={goToLogin}>Ir al login</button> 
-        <Link to="/register">¿No tienes una cuenta?. Registrate aquí.</Link>
+            <button 
+                type="button"
+                onClick={goToLogin}>Ir al login</button> 
+            <Link to="/register">¿No tienes una cuenta?. Registrate aquí.</Link>
             </form> 
         </>
     )

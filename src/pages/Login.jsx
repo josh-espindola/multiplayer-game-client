@@ -2,6 +2,8 @@ import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate , Link } from 'react-router';
 import { useAuth } from '../context/useAuth.js';
+import { FormContainer } from '../Components/FormContainer.jsx';
+
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -40,9 +42,9 @@ const Login = () => {
         }
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Iniciar Sesión</h1>
-                Nombre de usuario:
+       <FormContainer title="Bievenido al login" handleSubmit={handleSubmit}
+        >
+               Nombre de usuario:
                 <input
                     id="username"
                     type="text"
@@ -65,11 +67,9 @@ const Login = () => {
                     }}
                 />
 
-            <button type="submit">Iniciar Sesión</button>
+            <button type="submit">Log In</button>
 
-
-            
-        </form>
+       </FormContainer>
     )
 }
 

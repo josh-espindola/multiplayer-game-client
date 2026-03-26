@@ -1,10 +1,15 @@
 import { createContext, useEffect, useState } from "react";
 import { isTokenExpired } from "../utils/token";
+import { useNavigate } from "react-router";
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+    /* Estado de usuario */
     const [user, setUser] = useState(null) // no logueado
+
+
+    const navigate = useNavigate();
 
     const login = (token) => {
         localStorage.setItem("token", token);
@@ -15,6 +20,7 @@ const AuthProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem("token");
         setUser(null);
+        navigate("/");
     }
 
     /* UseEffect para saber si hay token o no */
@@ -26,6 +32,7 @@ const AuthProvider = ({ children }) => {
         }
     }, []);
 
+    console.log(user);
 
     return (
         <AuthContext.Provider

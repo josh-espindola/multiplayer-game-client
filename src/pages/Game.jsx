@@ -4,8 +4,8 @@ import { useSocket } from '../context/useSocket.js'
 import { useAuth } from '../context/useAuth.js';
 
 const Game = () => {
-    const { user } = useAuth();
-    const { socket, isConnected } = useSocket();
+    const { user, logout} = useAuth();
+    const { socket, isConnected , players  } = useSocket();
     const [messages,setMessage] = useState([])
     const [inputValue,setInputValue] = useState("")
 
@@ -31,14 +31,16 @@ const Game = () => {
         socket.on("chat",(data)=>{
             setMessage(prev => [...prev,data])
         })
-
+        
         return ()=> socket.off("chat");
     },[])
-
+    
     return (
         <section className='gameContainer'>
             <aside>
                 <h1> Chat Global</h1>
+                <p> Jugadores Online : {players.length}</p>
+                <button type="button" onClick={logout}>Logout</button>
                 <ul className='message-container'>
                     { messages.map((msg,index)=>(
                         <li key={index}>{msg.username}: {msg.text}</li>
@@ -59,7 +61,10 @@ const Game = () => {
                 </form>
             </aside>
 
-            <canvas id="canvas" width={800} height={600}></canvas>
+            <canvas id="canvas" width={800} height={600}>
+            <span>{`Jugadores Activos: ${players.length}`}</span>
+
+            </canvas>
 
         </section>
     )

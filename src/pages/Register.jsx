@@ -2,6 +2,7 @@ import { useState } from "react"
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { useAuth } from "../context/useAuth.js"
+import { FormContainer } from "../Components/FormContainer.jsx";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -56,53 +57,57 @@ const Register = () => {
         }
     }
 
-
+    const goToHome = ()=>{
+        navigate("/");
+    }
 
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <h1>Registro</h1>
-                <p>Crea tu cuenta para explorar nuestro mundo</p>
-
+      <FormContainer 
+        title="Crear una nueva cuenta"
+        handleSubmit={handleSubmit}>
                 <label htmlFor="username">Nombre de usuario</label>
                 <input
                     type="text"
+                    id="username"
                     name="username"
                     placeholder="Nombre de usuario"
                     value={form.username}
                     onChange={handleChange}
+                    autoComplete="off"
                 />
                 <label htmlFor="password">Contraseña</label>
                 <input
                     type="password"
+                    id="password"
                     name="password"
                     placeholder="Contraseña"
                     value={form.password}
                     onChange={handleChange}
+                    autoComplete="off"
                 />
                 <label htmlFor="confirmPassword">Contraseña</label>
                 <input
                     type="password"
+                    id="confirmPassword"
                     name="confirmPassword"
                     placeholder="Confirma contraseña"
                     value={form.confirmPassword}
                     onChange={handleChange}
+                    autoComplete="off"
                 />
                 <label htmlFor="email">Email</label>
                 <input
                     type="email"
+                    id="email"
                     name="email"
                     placeholder="Ingrese su Email"
                     value={form.email}
                     onChange={handleChange}
+                    autoComplete="off"
                 />
                 <button type="submit">Registrarse</button>
-            <button onClick={navigate("/")}> Inicio</button>
-            </form>
-
-
-
-        </>
+                 <button onClick={goToHome}>Inicio</button>
+      </FormContainer>
     )
 }
 export { Register } 
