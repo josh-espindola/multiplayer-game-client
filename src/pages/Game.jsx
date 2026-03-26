@@ -2,10 +2,11 @@ import  { useEffect, useState} from 'react'
 import './game.css'
 import { useSocket } from '../context/useSocket.js'
 import { useAuth } from '../context/useAuth.js';
+import { Canvas } from '../Components/Canvas.jsx';
 
 const Game = () => {
-    const { user, logout} = useAuth();
-    const { socket, isConnected , players  } = useSocket();
+    const { user, logout } = useAuth();
+    const { socket, isConnected, setIsConnected , players ,setPlayers } = useSocket();
     const [messages,setMessage] = useState([])
     const [inputValue,setInputValue] = useState("")
 
@@ -27,13 +28,22 @@ const Game = () => {
     }
 
     useEffect(()=>{
-        console.log("Se ha montado la pagina.", socket);
         socket.on("chat",(data)=>{
             setMessage(prev => [...prev,data])
-        })
-        
+        })          
         return ()=> socket.off("chat");
     },[])
+
+
+    useEffect(()=>{
+        if(!user || !socket) return;
+        // Al montar componente pedimos lista de jugadores actuales
+        socket.emit("players:get");
+      
+        return() => socket.off("players:update");
+    },[user,socket])
+
+
     
     return (
         <section className='gameContainer'>
@@ -61,10 +71,7 @@ const Game = () => {
                 </form>
             </aside>
 
-            <canvas id="canvas" width={800} height={600}>
-            <span>{`Jugadores Activos: ${players.length}`}</span>
-
-            </canvas>
+           <Canvas/>
 
         </section>
     )

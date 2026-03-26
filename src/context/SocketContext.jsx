@@ -1,61 +1,59 @@
+/* CONTROLA CONEXION DEL SOCKET, JUGADORES Y EVENTOS. */
 import { createContext } from "react";
 import { useState, useEffect } from "react";
-import  socket  from '../socket.js';
+import socket from '../socket.js';
 import { useAuth } from "./useAuth.js";
-
 
 
 const SocketContext = createContext();
 
-const SocketProvider = ({children})=>{
-
+const SocketProvider = ({ children }) => {
     const { user } = useAuth();
-    const [isConnected,setIsConnected] = useState(socket.connected);
-    const [players,setPlayers]= useState([]);
+    const [isConnected, setIsConnected] = useState(false);
+    const [players, setPlayers] = useState([]);
 
     useEffect(() => {
-        /* Si no hay usuario no tiramos effect */
-        if(!user) return;
+        if(!user) return; // sin usuario cortamos flujo
 
+
+        socket.auth = { token: localStorage.getItem("token")};
         socket.connect()
 
-        /* Al conectarse el socket desde el cliente. */
-        socket.on("connect", () => {
-            setIsConnected(true)
+        /* Evento de socket al conectarse */
+        socket.on("connect",()=>{
+            setIsConnected(true);
+            socket.emit("player:join",{userId: user.id, username: user.username,})
 
-            socket.emit("player:join",{
-                userId : user.id,
-                username: user.username,
-            })
-            socket.emit("players:update",players)
-        })
-        
-        socket.on("players:update",(playersfromServer) =>{
-            setPlayers(playersfromServer);
-            
         })
 
-        socket.on("disconnect", () => setIsConnected(false))
-        console.log("jugadores en memoria",players)
+        /* Evento actualizar jugadores online */
+        socket.on("players:update",(playersFromServer)=>{
+            setPlayers(playersFromServer)})
+
+        /* Evento al desconectar socket */
+        socket.on("disconnect",()=>{ setIsConnected(false); })
 
         return () => {
             socket.off("connect")
+            socket.off("player:update")
             socket.off("disconnect")
             socket.disconnect()
         }
-        }, []
-    )
+    }, [user]);
 
-    return(
+    return (
         <SocketContext.Provider
-        value={{
-            isConnected,
-            socket,
-            players,
-            setIsConnected}}>
+            value={{
+                isConnected,
+                socket,
+                players,
+                setPlayers,
+                setIsConnected
+            }}>
             {children}
         </SocketContext.Provider>
     )
 }
 
-export {SocketContext, SocketProvider}
+export { SocketContext, SocketProvider }
+

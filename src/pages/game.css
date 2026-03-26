@@ -48,14 +48,7 @@ body {
   background: var(--bg-dark);
 }
  
-#canvas {
-  flex: 1;
-  background: var(--canvas-bg);
-  display: block;
-  border-right: 2px solid var(--border-color);
-  image-rendering: pixelated;
-  image-rendering: crisp-edges;
-}
+
  
 aside {
   width: 380px;

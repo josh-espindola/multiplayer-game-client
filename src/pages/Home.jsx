@@ -1,5 +1,5 @@
 import { useNavigate , Link} from 'react-router'
-
+import { Canvas } from '../Components/Canvas.jsx';
 const Home = () => {
     const navigate = useNavigate();
 
@@ -20,6 +20,9 @@ const Home = () => {
                 onClick={goToLogin}>Ir al login</button> 
             <Link to="/register">¿No tienes una cuenta?. Registrate aquí.</Link>
             </form> 
+    
+    
+           {/*  <Canvas></Canvas> */}
         </>
     )
 
